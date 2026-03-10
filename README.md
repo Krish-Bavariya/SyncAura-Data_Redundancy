@@ -1,332 +1,164 @@
-# SyncAura Session & Region Tracker
+# SyncAura – Feature Development Task Checklist
 
-A lightweight prototype module for **SyncAura**, an internal meeting platform.
-This module focuses on two main features:
-
-1. Detecting the **region (city/country)** from which a user joins a meeting.
-2. Preventing a **single user from joining the same meeting from multiple devices**.
-
-The project is designed as a **minimal and efficient prototype** suitable for internship demonstrations and experimentation.
+This checklist helps the team track the progress of the **SyncAura Region Detection & Single-Device Join module**.
+Mark tasks as completed (`[x]`) when finished.
 
 ---
 
-# Features
+# Project Goal
 
-* 🌍 **Region Detection**
+Build a lightweight module that:
 
-  * Detects the user's **country and city** using their IP address.
-
-* 🔐 **Single Device Join Enforcement**
-
-  * Prevents a user from joining the same meeting from multiple devices.
-
-* 💾 **Session Logging**
-
-  * Stores session data locally for monitoring and analysis.
-
-* 🤖 **Optional ML Anomaly Detection**
-
-  * Detects suspicious behavior such as rapid device switching or location changes.
+* Detects the **region (city/country) of meeting participants**
+* Prevents **users from joining the same meeting from multiple devices**
+* Logs session information for monitoring and analysis
 
 ---
 
-# Project Structure
+# Member 1 – Region Detection Module
 
-```
-syncaura-tracker/
+## Setup
 
-src/
- ├── location.py
- ├── device.py
- ├── session.py
- ├── database.py
- └── anomaly_detection.py
+* [ ] Create project folder structure
+* [ ] Create `src/location.py`
 
-data/
- └── sessions.json
+## IP Capture
 
-main.py
-requirements.txt
-README.md
-```
+* [ ] Implement function to capture user IP
+* [ ] Validate IP format
+* [ ] Handle missing or invalid IP cases
 
----
+## Region Detection
 
-# Installation
+* [ ] Integrate GeoIP API
+* [ ] Implement function `get_location(ip)`
+* [ ] Extract:
 
-Clone the repository:
+  * [ ] Country
+  * [ ] City
+  * [ ] Region
 
-```bash
-git clone https://github.com/yourusername/syncaura-tracker.git
-cd syncaura-tracker
-```
+## Data Formatting
 
-Install dependencies:
+* [ ] Structure location data as JSON
+* [ ] Ensure compatibility with session storage
 
-```bash
-pip install -r requirements.txt
-```
+## Testing
+
+* [ ] Test with multiple IP addresses
+* [ ] Handle API errors gracefully
 
 ---
 
-# Requirements
+# Member 2 – Device Validation Module
 
-```
-requests
-scikit-learn
-```
+## Device Fingerprinting
 
----
+* [ ] Create `src/device.py`
+* [ ] Capture device attributes:
 
-# Running the Prototype
+  * [ ] Browser
+  * [ ] Operating system
+  * [ ] Screen resolution
+  * [ ] IP address
 
-Run the main script:
+## Device ID Generation
 
-```bash
-python main.py
-```
+* [ ] Implement `generate_device_id()`
+* [ ] Generate hash for device fingerprint
+* [ ] Ensure uniqueness of device ID
 
-Example output:
+## Session Control
 
-```
-User: U101
-Meeting: M21
-Location: Pune, India
-Device: Laptop
+* [ ] Create `src/session.py`
+* [ ] Implement join validation logic
+* [ ] Check if user already active in meeting
+* [ ] Block additional device attempts
+* [ ] Return join status message
 
-Status: Join Successful
-```
+## Testing
 
-If the same user tries to join from another device:
-
-```
-User already active in meeting
-Access Denied
-```
+* [ ] Test same device join
+* [ ] Test multiple device attempts
+* [ ] Confirm rejection logic works
 
 ---
 
-# Code Implementation
+# Member 3 – Data Storage & ML Module
 
-## main.py
+## Database Setup
 
-```python
-from src.location import get_location
-from src.device import generate_device_id
-from src.session import join_meeting
+* [ ] Create `src/database.py`
+* [ ] Implement session load function
+* [ ] Implement session save function
 
-user_id = "U101"
-meeting_id = "M202"
+## Session Logging
 
-ip = "8.8.8.8"
-browser = "Chrome"
-os = "Windows"
-screen = "1920x1080"
+* [ ] Create `data/sessions.json`
+* [ ] Store fields:
 
-location = get_location(ip)
+  * [ ] user_id
+  * [ ] meeting_id
+  * [ ] device_id
+  * [ ] location
+  * [ ] timestamp
 
-device_id = generate_device_id(browser, os, screen, ip)
+## Data Validation
 
-status = join_meeting(user_id, meeting_id, device_id, location)
+* [ ] Ensure sessions append correctly
+* [ ] Prevent duplicate entries
+* [ ] Handle missing fields
 
-print(status)
-```
+## ML Prototype (Optional but recommended)
 
----
+* [ ] Create `src/anomaly_detection.py`
+* [ ] Define feature inputs
 
-# src/location.py
-
-```python
-import requests
-
-def get_location(ip):
-    url = f"http://ip-api.com/json/{ip}"
-    response = requests.get(url)
-    data = response.json()
-
-    return {
-        "country": data.get("country"),
-        "city": data.get("city")
-    }
-```
+  * [ ] device change count
+  * [ ] location change distance
+  * [ ] IP change frequency
+* [ ] Implement anomaly detection model
+* [ ] Test with sample dataset
 
 ---
 
-# src/device.py
+# Final Validation
 
-```python
-import hashlib
-
-def generate_device_id(browser, os, screen, ip):
-
-    raw = browser + os + screen + ip
-
-    device_hash = hashlib.sha256(raw.encode()).hexdigest()
-
-    return device_hash
-```
+* [ ] Clean code and remove debug prints
+* [ ] Verify folder structure
+* [ ] Add comments to important functions
+* [ ] Create final demo scenario
+* [ ] Prepare presentation or demo script
 
 ---
 
-# src/database.py
+# Demo Scenario Checklist
 
-```python
-import json
-import os
-
-DB_FILE = "data/sessions.json"
-
-
-def load_sessions():
-
-    if not os.path.exists(DB_FILE):
-        return []
-
-    with open(DB_FILE, "r") as f:
-        return json.load(f)
-
-
-def save_sessions(sessions):
-
-    with open(DB_FILE, "w") as f:
-        json.dump(sessions, f, indent=4)
-```
+* [ ] User joins meeting normally
+* [ ] System displays detected region
+* [ ] Session stored in logs
+* [ ] Same user attempts second device join
+* [ ] System blocks second login
+* [ ] Display access denied message
 
 ---
 
-# src/session.py
+# Project Completion Status
 
-```python
-from src.database import load_sessions, save_sessions
-
-
-def join_meeting(user_id, meeting_id, device_id, location):
-
-    sessions = load_sessions()
-
-    for session in sessions:
-
-        if session["user_id"] == user_id and session["meeting_id"] == meeting_id:
-            return "User already active in meeting. Access Denied."
-
-    new_session = {
-        "user_id": user_id,
-        "meeting_id": meeting_id,
-        "device_id": device_id,
-        "location": location
-    }
-
-    sessions.append(new_session)
-
-    save_sessions(sessions)
-
-    return "Join Successful"
-```
+| Task Area         | Status |
+| ----------------- | ------ |
+| Region Detection  | ⬜      |
+| Device Validation | ⬜      |
+| Session Storage   | ⬜      |
+| ML Prototype      | ⬜      |
+| Final Testing     | ⬜      |
 
 ---
 
-# src/anomaly_detection.py (Optional ML Feature)
+# Notes
 
-```python
-from sklearn.ensemble import IsolationForest
-import numpy as np
+Use this checklist during development meetings to track:
 
-
-def detect_anomaly(data):
-
-    model = IsolationForest(contamination=0.1)
-
-    model.fit(data)
-
-    prediction = model.predict(data)
-
-    return prediction
-```
-
-Example feature data:
-
-```
-device_change_count
-location_change_distance
-ip_change_frequency
-```
-
----
-
-# Example Stored Session Data
-
-`data/sessions.json`
-
-```json
-[
-    {
-        "user_id": "U101",
-        "meeting_id": "M202",
-        "device_id": "abc123",
-        "location": {
-            "country": "India",
-            "city": "Pune"
-        }
-    }
-]
-```
-
----
-
-# Task Division (3 Members)
-
-### Member 1 – Location Detection
-
-Responsibilities:
-
-* Capture user IP
-* Convert IP to region
-* Implement `location.py`
-
----
-
-### Member 2 – Device Validation
-
-Responsibilities:
-
-* Generate device fingerprint
-* Prevent multiple device joins
-* Implement:
-
-```
-device.py
-session.py
-```
-
----
-
-### Member 3 – Data & ML
-
-Responsibilities:
-
-* Session storage
-* Participation logging
-* ML anomaly detection
-
-Files:
-
-```
-database.py
-anomaly_detection.py
-```
-
----
-
-# Future Improvements
-
-* Real-time meeting integration
-* Browser fingerprinting
-* Dashboard for meeting host
-* Advanced ML fraud detection
-* Scalable database (PostgreSQL)
-
----
-
-# License
-
-This project is intended for **research and educational purposes** as part of the SyncAura internship project.
+* completed tasks
+* pending tasks
+* blockers or issues
