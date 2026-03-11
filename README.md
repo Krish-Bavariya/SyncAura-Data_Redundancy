@@ -19,14 +19,14 @@ Build a lightweight module that:
 
 ## Setup
 
-* [ ] Create project folder structure
-* [ ] Create `src/location.py`
+* [x] Create project folder structure
+* [x] Create `src/location.py`
 
 ## IP Capture
 
-* [ ] Implement function to capture user IP
-* [ ] Validate IP format
-* [ ] Handle missing or invalid IP cases
+* [x] Implement function to capture user IP
+* [x] Validate IP format
+* [x] Handle missing or invalid IP cases
 
 ## Region Detection
 
