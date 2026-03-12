@@ -30,13 +30,13 @@ Build a lightweight module that:
 
 ## Region Detection
 
-* [ ] Integrate GeoIP API
-* [ ] Implement function `get_location(ip)`
-* [ ] Extract:
+* [x] Integrate GeoIP API
+* [x] Implement function `get_location(ip)`
+* [x] Extract:
 
-  * [ ] Country
-  * [ ] City
-  * [ ] Region
+  * [x] Country
+  * [x] City
+  * [x] Region
 
 ## Data Formatting
 
