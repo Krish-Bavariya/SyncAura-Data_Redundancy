@@ -1,38 +1,27 @@
 import requests
-import re
+import json
 
-
-def validate_ip(ip):
-    """
-    Validate IPv4 address format
-    """
-    pattern = r"^(?:[0-9]{1,3}\.){3}[0-9]{1,3}$"
-
-    if re.match(pattern, ip):
-        return True
-    return False
+GEO_API = "http://ip-api.com/json/"
 
 
 def get_location(ip):
     """
-    Get location data from IP address
+    Fetch location information from GeoIP API
+    Returns JSON-compatible location data
     """
 
-    if not validate_ip(ip):
-        return {"error": "Invalid IP address"}
-
     try:
-        url = f"http://ip-api.com/json/{ip}"
-        response = requests.get(url, timeout=5)
+        response = requests.get(GEO_API + ip, timeout=5)
         data = response.json()
 
         if data["status"] != "success":
-            return {"error": "Location lookup failed"}
+            return {"error": "GeoIP lookup failed"}
 
+        # Structured location data
         location_data = {
             "country": data.get("country"),
             "city": data.get("city"),
-            "region": data.get("regionName"),
+            "region": data.get("regionName")
         }
 
         return location_data
@@ -41,16 +30,15 @@ def get_location(ip):
         return {"error": str(e)}
 
 
-# Run test if executed directly
+# Manual testing block
 if __name__ == "__main__":
 
-    test_ips = [
-        "8.8.8.8",       # Google DNS (USA)
-        "1.1.1.1",       # Cloudflare DNS
-        "49.36.10.5",    # Example India IP
-        "999.999.999.999" # Invalid IP
-    ]
+    ip = input("Enter IP address: ")
 
-    for ip in test_ips:
-        print(f"\nTesting IP: {ip}")
-        print(get_location(ip))
+    location = get_location(ip)
+
+    print("\nLocation (Dictionary):")
+    print(location)
+
+    print("\nLocation (JSON format):")
+    print(json.dumps(location, indent=4))
