@@ -1,0 +1,16 @@
+[
+    {
+        "user_id": "U101",
+        "meeting_id": "M001",
+        "device_id": "12ddc4b01d21461ed266d8d693b27f6a22b6102a589efa0cf7248ba13c978c41",
+        "location": "India",
+        "timestamp": "2026-03-26T10:00:00"
+    },
+    {
+        "user_id": "U101",
+        "meeting_id": "M001",
+        "device_id": "12ddc4b01d21461ed266d8d693b27f6a22b6102a589efa0cf7248ba13c978c41",
+        "location": "India",
+        "timestamp": "2026-03-26T10:00:00"
+    }
+]
