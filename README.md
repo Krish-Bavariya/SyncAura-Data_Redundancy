@@ -40,13 +40,13 @@ Build a lightweight module that:
 
 ## Data Formatting
 
-* [ ] Structure location data as JSON
-* [ ] Ensure compatibility with session storage
+* [x] Structure location data as JSON
+* [x] Ensure compatibility with session storage
 
 ## Testing
 
-* [ ] Test with multiple IP addresses
-* [ ] Handle API errors gracefully
+* [x] Test with multiple IP addresses
+* [x] Handle API errors gracefully
 
 ---
 
@@ -54,33 +54,33 @@ Build a lightweight module that:
 
 ## Device Fingerprinting
 
-* [ ] Create `src/device.py`
-* [ ] Capture device attributes:
+* [x] Create `src/device.py`
+* [x] Capture device attributes:
 
-  * [ ] Browser
-  * [ ] Operating system
-  * [ ] Screen resolution
-  * [ ] IP address
+  * [x] Browser
+  * [x] Operating system
+  * [x] Screen resolution
+  * [x] IP address
 
 ## Device ID Generation
 
-* [ ] Implement `generate_device_id()`
-* [ ] Generate hash for device fingerprint
-* [ ] Ensure uniqueness of device ID
+* [x] Implement `generate_device_id()`
+* [x] Generate hash for device fingerprint
+* [x] Ensure uniqueness of device ID
 
 ## Session Control
 
-* [ ] Create `src/session.py`
-* [ ] Implement join validation logic
-* [ ] Check if user already active in meeting
-* [ ] Block additional device attempts
-* [ ] Return join status message
+* [x] Create `src/session.py`
+* [x] Implement join validation logic
+* [x] Check if user already active in meeting
+* [x] Block additional device attempts
+* [x] Return join status message
 
 ## Testing
 
-* [ ] Test same device join
-* [ ] Test multiple device attempts
-* [ ] Confirm rejection logic works
+* [x] Test same device join
+* [x] Test multiple device attempts
+* [x] Confirm rejection logic works
 
 ---
 
@@ -88,58 +88,58 @@ Build a lightweight module that:
 
 ## Database Setup
 
-* [ ] Create `src/database.py`
-* [ ] Implement session load function
-* [ ] Implement session save function
+* [x] Create `src/database.py`
+* [x] Implement session load function
+* [x] Implement session save function
 
 ## Session Logging
 
-* [ ] Create `data/sessions.json`
-* [ ] Store fields:
+* [x] Create `data/sessions.json`
+* [x] Store fields:
 
-  * [ ] user_id
-  * [ ] meeting_id
-  * [ ] device_id
-  * [ ] location
-  * [ ] timestamp
+  * [x] user_id
+  * [x] meeting_id
+  * [x] device_id
+  * [x] location
+  * [x] timestamp
 
 ## Data Validation
 
-* [ ] Ensure sessions append correctly
-* [ ] Prevent duplicate entries
-* [ ] Handle missing fields
+* [x] Ensure sessions append correctly
+* [x] Prevent duplicate entries
+* [x] Handle missing fields
 
 ## ML Prototype (Optional but recommended)
 
-* [ ] Create `src/anomaly_detection.py`
-* [ ] Define feature inputs
+* [x] Create `src/anomaly_detection.py`
+* [x] Define feature inputs
 
-  * [ ] device change count
-  * [ ] location change distance
-  * [ ] IP change frequency
-* [ ] Implement anomaly detection model
-* [ ] Test with sample dataset
+  * [x] device change count
+  * [x] location change distance
+  * [x] IP change frequency
+* [x] Implement anomaly detection model
+* [x] Test with sample dataset
 
 ---
 
 # Final Validation
 
-* [ ] Clean code and remove debug prints
-* [ ] Verify folder structure
-* [ ] Add comments to important functions
-* [ ] Create final demo scenario
-* [ ] Prepare presentation or demo script
+* [x] Clean code and remove debug prints
+* [x] Verify folder structure
+* [x] Add comments to important functions
+* [x] Create final demo scenario
+* [x] Prepare presentation or demo script
 
 ---
 
 # Demo Scenario Checklist
 
-* [ ] User joins meeting normally
-* [ ] System displays detected region
-* [ ] Session stored in logs
-* [ ] Same user attempts second device join
-* [ ] System blocks second login
-* [ ] Display access denied message
+* [x] User joins meeting normally
+* [x] System displays detected region
+* [x] Session stored in logs
+* [x] Same user attempts second device join
+* [x] System blocks second login
+* [x] Display access denied message
 
 ---
 
